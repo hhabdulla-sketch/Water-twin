@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة المهندس عبد الله لتوائم التحكم الرقمي | Manfouha Twin</title>
+<style>
+:root {
+--bg-dark: #0b0f19;
+--bg-panel: #1e293b;
+--bg-card: #151f32;
+--color-info: #3b82f6;
+--color-success: #10b981;
+--color-warning: #f59e0b;
+--color-danger: #ef4444;
+--text-main: #f8fafc;
+--text-glow: #00ff66;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background-color: var(--bg-dark);
+color: var(--text-main);
+height: 100vh;
+display: flex;
+flex-direction: column;
+overflow: hidden;
+}
+
+/* Top Web Platform Header & Brand */
+header.platform-header {
+background-color: var(--bg-panel);
+padding: 10px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 2px solid var(--color-info);
+z-index: 100;
+}
+
+.brand-zone h1 {
+font-size: 18px;
+color: #fff;
+}
+.brand-zone p {
+font-size: 11px;
+color: #94a3b8;
+}
+
+/* Left Action & Profile Block */
+.profile-status-block {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+/* Circular Avatar Implementation */
+.user-avatar {
+width: 42px;
+height: 42px;
+border-radius: 50%;
+border: 2px solid var(--color-success);
+box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+object-fit: cover;
+}
+
+/* Technical Interactive Book Navigation Tabs */
+.book-tabs {
+display: flex;
+background: #0f172a;
+padding: 4px;
+border-radius: 6px;
+border: 1px solid #334155;
+}
+
+.tab-btn {
+background: transparent;
+color: #94a3b8;
+border: none;
+padding: 8px 16px;
+font-size: 13px;
+font-weight: bold;
+cursor: pointer;
+border-radius: 4px;
+transition: 0.3s;
+margin: 0 2px;
+}
+
+.tab-btn.active-tab {
+background-color: var(--color-info);
+color: white;
+box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+/* Quick Dashboard Guide Strip */
+.quick-guide-strip {
+background-color: #1e1b4b;
+border-bottom: 1px solid #4338ca;
+padding: 8px 20px;
+font-size: 12px;
+color: #c7d2fe;
+display: flex;
+gap: 15px;
+align-items: center;
+z-index: 90;
+}
+.guide-tag {
+background-color: var(--color-warning);
+color: #000;
+padding: 2px 6px;
+font-weight: bold;
+border-radius: 3px;
+font-size: 11px;
+}
+
+/* Content Pages Stack */
+.page-content-container {
+flex: 1;
+position: relative;
+background-color: var(--bg-dark);
+}
+
+.platform-page {
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+visibility: hidden;
+opacity: 0;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+padding: 15px;
+overflow-y: auto;
+}
+
+.platform-page.active-page {
+visibility: visible;
+opacity: 1;
+z-index: 10;
+}
+
+/* ----------------------- 1. SCADA 2D Page Styles ----------------------- */
+.scada-layout { display: grid; grid-template-columns: 3fr 1.2fr; gap: 15px; }
+.pnd-container { background: #111827; border-radius: 8px; padding: 15px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+.unit-card { background: var(--bg-card); border: 2px solid #334155; border-radius: 6px; width: 30%; min-width: 200px; padding: 10px; text-align: center; cursor: pointer; transition: 0.2s; position: relative;}
+.unit-card:hover { border-color: var(--color-info); }
+.unit-card.selected-unit { border-color: var(--color-warning); background: #1e2e4a; }
+.tank-visual { width: 100%; height: 75px; background: #000; border: 2px solid #4b5563; border-top: none; position: relative; overflow: hidden; margin-bottom: 8px; }
+.tank-water { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: #2563eb; transition: height 0.5s; }
+.tank-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; text-shadow: 1px 1px 2px #000; font-size: 12px; }
+.telemetry-block { background: #000; padding: 5px; font-size: 11px; text-align: right; border-radius: 4px; margin-top: 5px; }
+.tel-val { color: var(--color-success); font-family: monospace; font-weight: bold; float: left; }
+.intel-box { background: #111827; padding: 12px; border-left: 4px solid var(--color-info); font-size: 12px; line-height: 1.6; border-radius: 4px; }
+
+/* ----------------------- 2. DCS Panel Page Styles ----------------------- */
+.dcs-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 10px; height: 100%; }
+.dcs-mimic { background: #090d13; border: 2px solid #2d3748; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+.dcs-node { background: #1a2230; border: 1px solid #475569; width: 18%; padding: 6px; border-radius: 3px; }
+.dcs-pv { background: #000; padding: 3px; font-size: 11px; margin: 3px 0; font-family: monospace; color: #00ff66; }
+.dcs-lamp { font-size: 9px; padding: 2px; text-align: center; border-radius: 2px; display: block; margin-top: 4px; font-weight: bold; }
+.lamp-on { background: #064e3b; color: #4ade80; border: 1px solid #10b981; }
+.lamp-trip { background: #450a0a; color: #f87171; border: 1px solid #ef4444; }
+.pid-box { background: #1a2230; padding: 10px; border-radius: 4px; margin-bottom: 8px; border-right: 3px solid var(--color-warning); }
+.soe-log { background: #000; color: #a7f3d0; font-family: monospace; font-size: 10px; height: 100px; overflow-y: auto; padding: 5px; margin-top: 10px; border: 1px solid #222; }
+
+/* ----------------------- 3. 3D Twin Page Styles ----------------------- */
+#webgl-container { width: 100%; height: 450px; position: relative; background: #05070f; }
+.td-hud { position: absolute; bottom: 15px; left: 15px; right: 15px; background: rgba(15,23,42,0.85); border: 1px solid var(--color-info); padding: 10px; border-radius: 6px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; pointer-events: none; z-index: 50; }
+.td-card { background: #000; padding: 5px; font-size: 11px; border-radius: 3px; }
+
+/* ----------------------- 4. Curriculum Page Styles ----------------------- */
+.curriculum-container { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; background: #111827; padding: 20px; border-radius: 8px; }
+.level-box { background: var(--bg-card); border-right: 4px solid var(--color-info); padding: 15px; border-radius: 4px; margin-bottom: 12px; }
+.level-title { font-size: 14px; font-weight: bold; color: var(--color-warning); margin-bottom: 5px; }
+.marketing-box { background: #1e293b; padding: 15px; border-radius: 6px; border: 1px dashed #475569; }
+</style>
+<script src="https://cloudflare.com"></script>
+<script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+<!-- Header Platform Navbar -->
+<header class="platform-header">
+<div class="brand-zone">
+<h1>منصة المهندس عبد الله لتوائم التحكم الرقمي ⚙️</h1>
+<p>محاكاة وتشغيل محطة معالجة مياه الصرف الصحي بمنفوحة بالرياض | للمهندسين والفنيين</p>
+</div>
+
+<!-- Book Style Navigation System -->
+<div class="book-tabs">
+<button class="tab-btn active-tab" onclick="switchPage(1)">١. واجهة التحكم الرقابية 2D</button>
+<button class="tab-btn" onclick="switchPage(2)">٢. لوحة نظام التحكم الموزع DCS</button>
+<button class="tab-btn" onclick="switchPage(3)">٣. التوأم الافتراضي ثلاثي الأبعاد 3D</button>
+<button class="tab-btn" onclick="switchPage(4)">٤. المنهج التدريبي والخطة التشغيلية</button>
+</div>
+
+<!-- Left Profile Zone -->
+<div class="profile-status-block">
+<div style="font-size: 11px; text-align: left; font-family: monospace;">
+<div style="color: var(--color-success)">ADMIN: CONNECTED</div>
+<div id="globalClock" style="color: #94a3b8">2026-11-07 05:41:00</div>
+</div>
+<!-- Your Personal Photo Added Here -->
+<img src="image_5WoTfK.png" alt="المهندس عبد الله" class="user-avatar">
+</div>
+</header>
+
+<!-- Quick Dashboard Guide Strip -->
+<div class="quick-guide-strip">
+<span class="guide-tag">دليل الاستخدام السريع:</span>
+<span id="dynamicGuideText">اضغط على أي مرحلة مرقمة لاستكشاف المعدات الميدانية وغرضها التشغيلي بالتفصيل.</span>
+</div>
+
+<!-- Content Area Stack -->
+<div class="page-content-container">
+
+<!-- ======================= PAGE 1: SCADA 2D INTERACTIVE ======================= -->
